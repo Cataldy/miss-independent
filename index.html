@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Miss Independent — That's You">
+<title>Miss Independent — That's You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="hero-photo" style="background-image:url('capa.png')" aria-hidden="true"></div>
+<div class="veil" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-copy">
+    <p class="small">A playlist for someone special</p>
+    <h1>Miss<br>Independent</h1>
+    <p class="script gold">That's you.</p>
+    <p class="lead">Some things are difficult to put into words.<br>So I chose songs.</p>
+    <a href="#letter" class="down">Open your letter <span>↓</span></a>
+  </div>
+</header>
+
+<!-- LETTER (envelope interativo) -->
+<section class="letter" id="letter">
+  <button class="envelope" id="envelope" aria-expanded="false" aria-controls="paper">
+    <span class="flap"></span>
+    <span class="seal">♡</span>
+    <span class="env-hint">Tap to open</span>
+  </button>
+
+  <article class="paper" id="paper" aria-hidden="true">
+    <p class="script">Dear you,</p>
+    <h2>I made this playlist<br>for you.</h2>
+    <p class="line">Not because every song tells your story.</p>
+    <p class="line">But because, somehow, each one reminds me of something I see in you.</p>
+    <p class="line">A strong heart. A kind soul. Big dreams — and a way of doing things that is entirely yours.</p>
+    <p class="script sign">♡</p>
+  </article>
+</section>
+
+<!-- MOOD -->
+<section class="mood">
+  <h2>How do you feel today?</h2>
+  <div class="chips" role="group" aria-label="Choose a mood">
+    <button class="chip" data-mood="strong">Strong</button>
+    <button class="chip" data-mood="soft">Soft</button>
+    <button class="chip" data-mood="free">Free</button>
+    <button class="chip" data-mood="tired">A bit tired</button>
+  </div>
+  <p class="mood-text" id="moodText" aria-live="polite">Pick one. I have something to say to each.</p>
+  <p class="mood-song" id="moodSong"></p>
+  <img class="mood-photo" id="moodPhoto" alt="" hidden>
+</section>
+
+<!-- MURAL -->
+<section class="wall" id="wall">
+  <p class="small">Your light, your places, your smile</p>
+  <h2>42 reasons<br><em>to keep going.</em></h2>
+  <p class="hint"><span class="dsk">Drag them around. </span>Tap one to see it bigger.</p>
+  <div class="tools"><button class="chip" id="shuffle">Shuffle ✦</button><button class="chip" id="tidy">Tidy up</button></div>
+  <div class="board" id="board"></div>
+  <button class="chip more" id="more">More photos ✦</button>
+</section>
+
+<!-- PLAYLIST -->
+<section class="playlist" id="playlist">
+  <div class="cover">
+    <img src="capa2.png" alt="Cover of the playlist Miss Independent — That's You" id="cover" loading="lazy">
+    <span class="crown" id="crown" role="button" tabindex="0" aria-label="Tap the crown">♛</span>
+  </div>
+
+  <div class="stage">
+    <h2>For the girl <em>with her own way.</em></h2>
+    <div class="spotify">
+      <iframe src="https://open.spotify.com/embed/playlist/3fzmKjMBTmf7EGCMSXO5sH?utm_source=generator" width="100%" height="352" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify playlist"></iframe>
+    </div>
+
+    <h3 class="script">Why each song</h3>
+    <ol class="tracks" id="tracks"></ol>
+  </div>
+</section>
+
+<!-- REEL -->
+<section class="reel" aria-label="Photo reel"><div class="track" id="t1"></div><div class="track rev" id="t2"></div></section>
+
+<!-- QUOTE -->
+<section class="quote">
+  <p class="mark">“</p>
+  <h2>Some things are easier<br>to feel than to say.</h2>
+  <p class="script gold">So... just listen.</p>
+</section>
+
+<!-- FINAL -->
+<section class="final">
+  <p class="small">One last thing</p>
+  <h2>This one is for you.</h2>
+  <button class="heart-btn" id="heartBtn" aria-label="Send a heart">♡</button>
+  <p class="count" id="count">Tap the heart.</p>
+</section>
+
+<footer><p>Made with intention.</p></footer>
+
+<div class="lb" id="lb" hidden>
+  <button class="lb-x" id="lbX" aria-label="Close">×</button>
+  <button class="lb-n prev" id="lbP" aria-label="Previous">‹</button>
+  <img id="lbImg" alt="">
+  <button class="lb-n next" id="lbN" aria-label="Next">›</button>
+  <p id="lbCap"></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
