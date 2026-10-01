@@ -48,7 +48,6 @@
     ['Miss Independent', 'Ne-Yo', 'The one that started it all. This is the title, and the truth.'],
     ['She Got Her Own', 'Ne-Yo, Jamie Foxx, Fabolous', 'Because you build your own things.'],
     ['Girl on Fire', 'Alicia Keys', 'For the days you light up the whole room without trying.'],
-    ['Flowers', 'Miley Cyrus', 'You are your own best company.'],
     ['Just Fine', 'Mary J. Blige', 'Your good mood is contagious.'],
     ['Masterpiece', 'Jessie J', 'A work in progress, and already a masterpiece.'],
     ['Strength, Courage & Wisdom', 'India.Arie', 'You carry all three.'],
