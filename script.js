@@ -18,6 +18,7 @@
     }
   };
   addEventListener('pointerdown', (e) => burst(e.clientX, e.clientY));
+  window.__burst = burst;
 
   /* carta */
   const letter = $('letter'), env = $('envelope'), paper = $('paper');
@@ -35,7 +36,7 @@
     free: ['Go your own way. The world looks better from where you stand.', 'Flowers — Miley Cyrus'],
     tired: ['Rest. You do not have to prove anything today. I am here.', 'Count on Me — Bruno Mars']
   };
-  const chips = document.querySelectorAll('.chip');
+  const chips = document.querySelectorAll('.chip[data-mood]');
   chips.forEach((c) => c.addEventListener('click', () => {
     chips.forEach((o) => o.setAttribute('aria-pressed', o === c));
     const [t, s] = moods[c.dataset.mood];
@@ -48,6 +49,7 @@
     ['Miss Independent', 'Ne-Yo', 'The one that started it all. This is the title, and the truth.'],
     ['She Got Her Own', 'Ne-Yo, Jamie Foxx, Fabolous', 'Because you build your own things.'],
     ['Girl on Fire', 'Alicia Keys', 'For the days you light up the whole room without trying.'],
+    ['Flowers', 'Miley Cyrus', 'You are your own best company.'],
     ['Just Fine', 'Mary J. Blige', 'Your good mood is contagious.'],
     ['Masterpiece', 'Jessie J', 'A work in progress, and already a masterpiece.'],
     ['Strength, Courage & Wisdom', 'India.Arie', 'You carry all three.'],
@@ -104,7 +106,7 @@
 
 /* ===== FOTOS: mural, reel, lightbox ===== */
 (() => {
-  const N = 42, g = (id) => document.getElementById(id);
+  const N = 43, g = (id) => document.getElementById(id);
   const src = (i) => `imagens/${i}.jpeg`;               // pasta "imagens" ao lado do index.html
   const ids = Array.from({ length: N }, (_, i) => i + 1);
   const caps = ['Strong heart', 'Kind soul', 'Big dreams', 'Independent', 'Bloom', 'Golden hour', 'Just you', 'Miss Independent'];
@@ -145,12 +147,12 @@
     more.classList.toggle('on', mob && vis < N);
     if (shuffle) order.sort(() => Math.random() - .5);
     order.forEach((id, k) => {
-      const el = snaps[id - 1], c = k % cols, r = (k / cols) | 0, j = tidy ? 0 : 1;
+      const el = snaps[id - 1], r = (k / cols) | 0, c = k % cols + (r === rows - 1 ? (cols - (vis - r * cols)) / 2 : 0), j = tidy ? 0 : 1;   // última fileira centralizada
       if (k >= vis) { el.style.display = 'none'; return; }
       if (el.style.display === 'none') { el.style.display = ''; void el.offsetWidth; }
       el.style.width = size + 'px'; el.style.transitionDelay = first ? k * 35 + 'ms' : '0ms';
       el._s = mob
-        ? { x: c * cw + (cw - size) / 2 + (Math.random() - .5) * cw * .08, y: r * ch + 12 + (c ? ch * .2 : 0), r: (Math.random() - .5) * 6 }
+        ? { x: c * cw + (cw - size) / 2 + (Math.random() - .5) * cw * .08, y: r * ch + 12 + (k % cols ? ch * .2 : 0), r: (Math.random() - .5) * 6 }
         : { x: c * cw + (cw - size) / 2 + (Math.random() - .5) * cw * .45 * j, y: r * ch + 16 + (Math.random() - .5) * ch * .3 * j, r: (Math.random() - .5) * (tidy ? 3 : 24) };
       el._put(); el.classList.add('in');
     });
@@ -165,7 +167,7 @@
   /* reel */
   /* fotos parecidas ficam em "grupos"; o reel intercala os grupos e embaralha a cada visita */
   const range = (a, b) => Array.from({ length: b - a + 1 }, (_, k) => a + k);
-  const groups = [range(26, 42), [2, 4, 5, 6, 7, 8, 9, 10, 11, 14], [20, 21, 22, 23, 24, 25], [1, 3, 12, 13, 15, 16, 17, 18, 19]];
+  const groups = [range(26, 42), [2, 4, 5, 6, 7, 8, 9, 10, 11, 14], [20, 21, 22, 23, 24, 25], [1, 3, 12, 13, 15, 16, 17, 18, 19, 43]];
   const rnd = (a) => a.sort(() => Math.random() - .5);
   const spread = (gs) => {                       // nunca coloca dois do mesmo grupo lado a lado
     for (let t = 0; t < 50; t++) {
@@ -193,4 +195,41 @@
   document.querySelectorAll('.chip[data-mood]').forEach((c) => c.addEventListener('click', () => {
     const p = g('moodPhoto'); p.hidden = false; p.style.animation = 'none'; void p.offsetWidth; p.style.animation = ''; p.src = src(mp[c.dataset.mood]);
   }));
+})();
+
+/* ===== CARTA COLECIONÁVEL + CONSTELAÇÃO ===== */
+(() => {
+  const g = (id) => document.getElementById(id);
+  const HER_NAME = '';                                   // <- opcional: coloque o nome dela aqui
+  const STATS = [['Strong heart', 100], ['Kind soul', 100], ['Big dreams', 98], ['Independence', 100], ['Smile', 100]];
+  const BACK = 'You are proof that strong and soft can live in the same person.';
+  if (HER_NAME) { const d = document.querySelector('.paper .script'); if (d) d.textContent = `Dear ${HER_NAME},`; g('cName').textContent = HER_NAME; }
+  g('stats').innerHTML = STATS.map(([n, v]) => `<li><span>${n}</span><i style="--v:${v}%"></i></li>`).join('');
+  g('cardMsg').textContent = BACK;
+
+  /* carta: inclina com o dedo/mouse, holográfica, vira ao toque */
+  const card = g('card'), set = (k, v) => card.style.setProperty(k, v);
+  card.addEventListener('pointermove', (e) => { const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height; set('--ry', (x - .5) * 26 + 'deg'); set('--rx', (.5 - y) * 26 + 'deg'); set('--mx', x * 100 + '%'); set('--my', y * 100 + '%'); });
+  card.addEventListener('pointerleave', () => { set('--rx', '0deg'); set('--ry', '0deg'); });
+  card.addEventListener('click', () => card.classList.toggle('flip'));
+  card.addEventListener('keydown', (e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), card.classList.toggle('flip')));
+  new IntersectionObserver((e, o) => { if (e[0].isIntersecting) { card.classList.add('in'); o.disconnect(); } }, { threshold: .35 }).observe(card);
+
+  /* constelação: ligue as estrelas 1→7 e a coroa acende */
+  const sky = g('sky'), svg = g('crownSvg'), P = [[30, 150], [55, 50], [105, 100], [150, 30], [195, 100], [245, 50], [270, 150]], pts = (n) => P.slice(0, n).map((p) => p.join(',')).join(' ');
+  let n = 0, done = false;
+  svg.innerHTML = `<defs><linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7d98a"/><stop offset="1" stop-color="#d69a32"/></linearGradient></defs><polygon points="${pts(7)}"/><polyline id="path" points=""/>` +
+    P.map(([x, y], i) => `<g transform="translate(${x} ${y})"><g class="star" data-i="${i}"><circle r="15"/><text y="4">${i + 1}</text></g></g>`).join('');
+  const path = g('path'), msg = g('skyMsg');
+  for (let k = 0; k < 45; k++) { const t = document.createElement('i'); t.className = 'tw'; t.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 100}%;--d:${2 + Math.random() * 4}s;--s:${1 + Math.random() * 2}px`; sky.appendChild(t); }
+  svg.addEventListener('click', (e) => {
+    const s = e.target.closest('.star'); if (!s || done) return; const i = +s.dataset.i;
+    if (i === n) { s.classList.add('on'); n++; path.setAttribute('points', pts(n)); msg.textContent = n < 7 ? `${n} of 7 ✦` : ''; if (n === 7) finish(); }
+    else { s.classList.remove('bad'); void s.getBoundingClientRect(); s.classList.add('bad'); }
+  });
+  function finish() {
+    done = true; svg.classList.add('done'); msg.innerHTML = 'Every queen writes her own crown.<br><em>Yours was never borrowed.</em>'; g('again').hidden = false;
+    const r = svg.getBoundingClientRect(); for (let k = 0; k < 5; k++) setTimeout(() => window.__burst && window.__burst(r.left + r.width * (.15 + Math.random() * .7), r.top + r.height * .55, 4), k * 250);
+  }
+  g('again').onclick = () => { n = 0; done = false; svg.classList.remove('done'); svg.querySelectorAll('.star').forEach((s) => s.classList.remove('on')); path.setAttribute('points', ''); msg.textContent = 'Tap them in order, 1 → 7.'; g('again').hidden = true; };
 })();

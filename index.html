@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 
@@ -62,7 +62,7 @@
 <!-- MURAL -->
 <section class="wall" id="wall">
   <p class="small">Your light, your places, your smile</p>
-  <h2>42 reasons<br><em>to keep going.</em></h2>
+  <h2>43 reasons<br><em>to keep going.</em></h2>
   <p class="hint"><span class="dsk">Drag them around. </span>Tap one to see it bigger.</p>
   <div class="tools"><button class="chip" id="shuffle">Shuffle ✦</button><button class="chip" id="tidy">Tidy up</button></div>
   <div class="board" id="board"></div>
@@ -82,8 +82,9 @@
       <iframe src="https://open.spotify.com/embed/playlist/3fzmKjMBTmf7EGCMSXO5sH?utm_source=generator" width="100%" height="352" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify playlist"></iframe>
     </div>
 
-    <h3 class="script">Why each song<br>
-      Dica: clique no nome de cada música
+    <h3 class="script">Why each song
+      <br>
+      Tip: just click the song titles
     </h3>
     <ol class="tracks" id="tracks"></ol>
   </div>
@@ -92,11 +93,40 @@
 <!-- REEL -->
 <section class="reel" aria-label="Photo reel"><div class="track" id="t1"></div><div class="track rev" id="t2"></div></section>
 
+<!-- CARTA COLECIONÁVEL -->
+<section class="cardsec" id="cardsec">
+  <p class="small">Limited edition · 1 of 1</p>
+  <h2>Collect the queen.</h2>
+  <div class="card3d" id="card" tabindex="0" role="button" aria-label="Collectible card. Tap to flip">
+    <div class="card-in">
+      <div class="face front">
+        <div class="holo"></div>
+        <div class="c-top"><b>MISS INDEPENDENT</b><span>♛ LV ∞</span></div>
+        <img src="imagens/5.jpeg" alt="">
+        <div class="c-name" id="cName">That's you</div>
+        <ul class="stats" id="stats"></ul>
+        <div class="c-foot">LEGENDARY ✦ 001/001</div>
+      </div>
+      <div class="face back"><p class="script gold">Read this twice.</p><p id="cardMsg"></p></div>
+    </div>
+  </div>
+  <p class="hint">Tilt it. Tap to flip.</p>
+</section>
+
 <!-- QUOTE -->
 <section class="quote">
   <p class="mark">“</p>
   <h2>Some things are easier<br>to feel than to say.</h2>
   <p class="script gold">So... just listen.</p>
+</section>
+
+<!-- CONSTELAÇÃO -->
+<section class="sky" id="sky">
+  <p class="small">A little game</p>
+  <h2>Connect the stars.</h2>
+  <svg id="crownSvg" viewBox="0 0 300 190" role="group" aria-label="Seven stars forming a crown"></svg>
+  <p class="sky-msg" id="skyMsg">Tap them in order, 1 → 7.</p>
+  <button class="chip" id="again" hidden>Again ✦</button>
 </section>
 
 <!-- FINAL -->
@@ -117,6 +147,6 @@
   <p id="lbCap"></p>
 </div>
 
-<script src="script.js"></script>
+<script src="script.js?v=8"></script>
 </body>
 </html>
